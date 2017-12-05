@@ -1,0 +1,90 @@
+<html ng-app="myapp">
+
+<head>
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="Default.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="Default.ts"></script>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div ng-controller="DataController as dataCtrl" class="container">
+    <div style="margin:20px 0px 20px 0px;">
+      <span>搜尋</span>
+      <input type="text" ng-model="search" />
+      <button type="button" ng-click="dataCtrl.Create();" / class="btn btn-primary" style="float:right;">新增</button>
+    </div>
+    <div ng-hide="dataCtrl.isList">
+      <form role="form" ng-submit="dataCtrl.Save(dataCtrl.target)">
+        <div class="form-group">
+          <label>ID:{{dataCtrl.target.id}}</label>
+          <br />
+          <label>Name:{{target.name}}</label>
+          <input type="text" ng-model="dataCtrl.target.name" class="form-control" />
+          <label>FullName:{{target.full_name}}</label>
+          <input type="text" ng-model="dataCtrl.target.full_name" class="form-control" />
+          <button type="submit" class="btn btn-success">Save</button>
+          </div>
+        </form>
+      </div>
+    <div ng-show="dataCtrl.isList">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>
+              序號
+            </th>
+            <th>
+              Id
+            </th>
+            <th>
+              Name
+            </th>
+            <th>
+              FullName
+            </th>
+            <th>
+              CreateTime
+            </th>
+            <th>
+              Edit
+            </th>
+            <th>
+              Delete
+            </th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="item in dataCtrl.items | orderBy:'id' | filter:search">
+          <tr>
+            <td>
+              {{$index+1}}
+            </td>
+            <td>
+              {{item.id}}
+            </td>
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+              {{item.full_name}}
+            </td>
+            <td>
+              {{item.created_at | date}}
+            </td>
+            <td>
+              <button type="button" ng-click="dataCtrl.Edit(item)" class="btn btn-primary">修改</button>
+            </td>
+            <td>
+              <button type="button" ng-click="dataCtrl.Delete(item)" class="btn btn-danger">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>
